@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  python: 
+    build: .
+  db:
+    image: postgres
+    container_name: 'postgres_nikolas'
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: ${PGDATA}
+    volumes:
+       - db_by_nikolas:/data/postgres_nikolas
+      
+  pgadmin:
+    container_name: pgadmin_nikolas
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - 5050:80
+
+volumes:
+  db_by_nikolas:
+    
