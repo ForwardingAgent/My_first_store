@@ -1,10 +1,31 @@
 version: "3"
 
 services:
-  python: 
-    build: .
-  db:
-    image: postgres
+  store-app: 
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+    # Текущая директория пробрасывается в директорию /store внутри контейнера
+    # Путь внутри контейнера (после двоеточия) обязательно должен быть абсолютным
+    # "мост" дает возм-ть сделать новый файл в докере и он появится сразу в локальном проекте(например docker-compose exec web-app ./manage.py startapp new app - команда которая в докер контейнере создает новое джанго приложение), и на оборот создав новый файл любой локально он сразу будет и в докере без ребилда.
+      - ./store:/store
+    environment: # переменные среды линукс
+      - DB_HOST=database  # ссылка на сервис database
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+    # Команда, которая будет выполнена после старта сервиса, 'sh -c' значит что должно использоват shell linux для запуска команды
+    depends_on:
+      database:
+        condition: service_healthy
+        # добавлен т.к. web-app не должно запускаться раньше чем БД
+
+  database:
+    image: postgres:15
     container_name: 'postgres_nikolas'
     restart: always
     environment:
@@ -14,6 +35,13 @@ services:
       PGDATA: ${PGDATA}
     volumes:
        - db_by_nikolas:/data/postgres_nikolas
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 7s
+      timeout: 5s
+      retries: 5
       
   pgadmin:
     container_name: pgadmin_nikolas
