@@ -135,6 +135,7 @@ STATICFILES_DIRS = (
     BASE_DIR / 'static',
 )
 
+# 3.8 2:00 добавляем пути для медиа
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

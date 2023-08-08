@@ -7,7 +7,6 @@ WORKDIR /store
 # то есть не нужно будет писать полный путь до файла manage.py, будем запускать из той папки где этот файл manage.py находится
 EXPOSE 8000
 
-# мой RUN apt-get install postgresql-client build-base postgresql-dev
 # RUN apk add postgresql-client build-base postgresql-dev
 # эти три пакета (зависимости) нужны установить в Linux для подключения python к postgres
 
