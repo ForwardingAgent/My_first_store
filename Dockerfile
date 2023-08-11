@@ -7,13 +7,11 @@ WORKDIR /store
 # то есть не нужно будет писать полный путь до файла manage.py, будем запускать из той папки где этот файл manage.py находится
 EXPOSE 8000
 
-
-# для FROM python:3.9
-#RUN apt-get update && apt-get install postgresql-client
-# для FROM python:3.9-alpine3.16 
+# для FROM python:3.9-alpine...
 #RUN apk add build-base postgresql-dev postgresql-client
 # эти три пакета (зависимости) нужны установить в Linux для подключения python к postgres
-
+# для FROM python:3.9
+RUN apt-get update && apt-get install -y postgresql-client build-essential libpq-dev
 
 RUN pip install -r /temp/requirements.txt
 # -r показывает из какого файла надо произвести установку зависимостей
@@ -23,3 +21,10 @@ RUN adduser --disabled-password store-user
 
 USER store-user
 # создаем юзера чтобы не под root заходить, а от имени юзера выполнять все команды
+
+
+# build-base, то его аналог в обычном образе (не alpine)-библиотека build-essential
+# аналог postgresql-dev - libpq-dev
+# build-essential, он для сборки пакетов Debian, а так как у меня Image python:3.9 (он в отличие от Alpine собирается на основе Image Debian), то он возможно и не нужен
+# libpq-dev - содержит набор функций, используя которые клиентские программы (C++, Perl, Python...) могут передавать запросы серверу PostgreSQL и принимать результаты этих запросов
+
