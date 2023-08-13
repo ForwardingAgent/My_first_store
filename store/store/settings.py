@@ -13,25 +13,27 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 
 import os
+# os.getenv() не вызывает исключение, но возвращает None
+# os.environ.get() аналогично возвращает None
+# os.environ[] вызывает исключение, если переменная окружения не существует
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = 'django-insecure-rp^^7340e6$7@lir*e3wt@2s$vc3jdf-y^lbr*=hgvkhnio@*_'
+SECRET_KEY = str(os.environ.get("SECRET_KEY"))
+# SECRET_KEY = 'django-insecure-rp^^7340e6$7@lir*e3wt@2s$vc3jdf-y^lbr*=hgvkhnio@*_'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = int(os.environ.get("DEBUG", default=0))
-DEBUG = 1
+DEBUG = int(os.environ.get("DEBUG", default=0))
+# DEBUG = 1
 
-# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split()
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+# ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 
 # Application definition
 
@@ -45,7 +47,7 @@ INSTALLED_APPS = [
 
     'products',
     'users',
-    'django.contrib.postgres',  # это модуль Django, который предоставляет интеграцию с базой данных PostgreSQL
+    # 'django.contrib.postgres',  # это модуль Django, который предоставляет интеграцию с базой данных PostgreSQL
 ]
 
 MIDDLEWARE = [
@@ -77,7 +79,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'store.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

@@ -46,7 +46,7 @@ services:
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 15s  # раз в 15 сек
-      timeout: 5s  # 15 сек на то чтобы он подумал
+      timeout: 5s  # 5 сек на то чтобы он подумал
       retries: 3  # если 3 раз подряд ответит неправильно то что-то случилось
       
   pgadmin:
