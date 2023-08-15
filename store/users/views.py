@@ -22,7 +22,7 @@ def login(request):  # при первом входе на страницу /use
     return render(request, 'users/login.html', context)
 
 
-def registration(request):
+def registration(request):  # 4.11
     if request.method == "POST":
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
