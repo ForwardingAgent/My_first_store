@@ -11,6 +11,7 @@ EXPOSE 8000
 #RUN apk add build-base postgresql-dev postgresql-client
 # эти три пакета (зависимости) нужны установить в Linux для подключения python к postgres
 # для FROM python:3.9
+# postgresql-dev аналогом для python:3.9 будет libpq-dev
 # build-base аналогом для python:3.9 будет build-essential, но убрал ее
 RUN apt-get update && apt-get install -y postgresql-client libpq-dev
 
