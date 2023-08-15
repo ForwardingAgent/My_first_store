@@ -4,18 +4,18 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from users.models import User
 
 
-class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={
+class UserLoginForm(AuthenticationForm):  # 4.8, 4.10  создаем красивые формы для регистрации (указываем где в login.html брать логин и пароль)
+    username = forms.CharField(widget=forms.TextInput(attrs={  # текст в форме TextInput не скрывается в PasswordInput скрывается
         'class': "form-control py-4", 'placeholder': "Введите имя пользователя"}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': "form-control py-4", 'placeholder': "Введите пароль"}))
 
-    class Meta:
+    class Meta:  # принимает доп параметры которые отвечают за то с какой моделью будет работать данная форма и какими полями
         model = User
         fields = ('username', 'password')
 
 
-class UserRegistrationForm(UserCreationForm):
+class UserRegistrationForm(UserCreationForm):  # 4.11
     first_name = forms.CharField(widget=forms.TextInput(attrs={
         'class': "form-control py-4", 'placeholder': "Введите имя"}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={

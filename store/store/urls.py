@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('products/', include('products.urls', namespace='products')),  # урок 4.2 добавили include() https://metanit.com/python/django/3.6.php
-    path('users/', include('users.urls', namespace='users')),  # урок 4.2 добавили include()
+    path('users/', include('users.urls', namespace='users')),  # урок 4.7 добавили path('users/'.....
 ]
 
 if settings.DEBUG:  # DEBUG == True:  
