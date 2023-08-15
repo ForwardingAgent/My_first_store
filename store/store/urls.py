@@ -23,10 +23,10 @@ from products.views import index, products
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('products/', include('products.urls', namespace='products')),
-    path('users/', include('users.urls', namespace='users')),
+    path('products/', include('products.urls', namespace='products')),  # урок 4.2 добавили include() https://metanit.com/python/django/3.6.php
+    path('users/', include('users.urls', namespace='users')),  # урок 4.2 добавили include()
 ]
 
 if settings.DEBUG:  # DEBUG == True:  
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    # 
+    # навести на static и подсказка покажет: какие импорты добавить и что передать в ф-ию static
