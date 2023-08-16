@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from products.models import ProductCategory, Product
+from django.shortcuts import render, HttpResponseRedirect
+
+from products.models import ProductCategory, Product, Basket
+from users.models import User
 
 
 def index(request):  # функция = контроллер = вьюха
@@ -7,13 +9,34 @@ def index(request):  # функция = контроллер = вьюха
     return render(request, 'products/index.html', context)
 
 
-def products(request):
+def products(request):  # приходит request это title или products или categories
     context = {
         'title': 'Store - Каталог',
         'products': Product.objects.all(),
         'categories': ProductCategory.objects.all(),
     }
-    return render(request, 'products/products.html', context)
+    return render(request, 'products/products.html', context)  # 
+    # render - объединяем заданный шаблон html с заданным контекстным словарем и возвращаем объект HttpResponse с этим визуализированным кодом.
+
+
+def basket_add(request, product_id):
+    product = Product.objects.get(id=product_id)
+    basket = Basket.objects.filter(user=request.user, product=product)
+
+    if not basket.exists():  # если корзина пуста то для user, устанавливаем для product кол-во = 1 
+        Basket.objects.create(user=request.user, product=product, quantity=1)
+    else:
+        basket = basket.first()  # иначе товар в корзине увеличиваем на 1 и сохраняем
+        basket.quantity += 1
+        basket.save()
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def basket_remove(request, basket_id):
+    basket = Basket.objects.get(id=basket_id)
+    basket.delete()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 

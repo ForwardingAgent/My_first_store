@@ -3,6 +3,7 @@ from django.contrib import auth, messages
 from django.urls import reverse
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from products.models import Basket
 
 # 4.7 урок
 def login(request):  # при первом входе на страницу /users/login/ срабатывает GET запрос и преходит ниже на else которая return пустую форму для заполнения 'users/login.html'
@@ -45,7 +46,11 @@ def profile(request):
             return HttpResponseRedirect(reverse('users:profile'))  # возвращаем на ту же страницу профиля
     else:
         form = UserProfileForm(instance=request.user)  # 4.12 добавляем instance с данными user чтобы в личн.кабинете в поля небыли пустыми
-    context = {'title': 'Store - Профиль', 'form': form}
+    context = {
+        'title': 'Store - Профиль',
+        'form': form,
+        'baskets': Basket.objects.filter(user=request.user),  # 5.3, а в 5.4 all() изменили не filter(user...) чтобы разделить товары по разным user'ам
+    }
     return render(request, 'users/profile.html', context)
 
 
