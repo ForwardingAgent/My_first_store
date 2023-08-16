@@ -73,7 +73,7 @@
 
 Чтобы запустить локальную версию проекта необходимо скачать себе командой:
    ```sh
-$ git clone https://github.com/ForwardingAgent/My_first_website.git
+$ git clone https://github.com/ForwardingAgent/My_first_store
    ```
 
 ### Установка и запуск

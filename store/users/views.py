@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponseRedirect
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.urls import reverse
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 # 4.7 урок
 def login(request):  # при первом входе на страницу /users/login/ срабатывает GET запрос и преходит ниже на else которая return пустую форму для заполнения 'users/login.html'
@@ -27,6 +27,7 @@ def registration(request):  # 4.11
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()  # пишем save для формы а он уже вызовет save для объектов и сохранит все в БД (first_name.save(), last_name.save() и тд)
+            messages.success(request, 'Поздравляем, вы успешно зарегистрировались!')  # 4.13 
             return HttpResponseRedirect(reverse('users:login'))  # перенаправляем на старницу авторизации
     else:
         form = UserRegistrationForm()
@@ -35,5 +36,19 @@ def registration(request):  # 4.11
 
 
 def profile(request):
-    context = {'title': 'Store - Профиль'}
+    if request.method == 'POST':  # 4.12 добавялем if для варианта если user меняет first_name и last_name в профиле в лич.кабинете
+        form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)  # instance это ТЕ first_name и last_name КОТОРЫЕ мы меняем в профиле в лич.кабинете,
+        # а data это данные НА КОТОРЫЕ мы меняем, которые приходят когда User меняет first_name и last_name
+        # files передает изображение загруженное User'ом
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('users:profile'))  # возвращаем на ту же страницу профиля
+    else:
+        form = UserProfileForm(instance=request.user)  # 4.12 добавляем instance с данными user чтобы в личн.кабинете в поля небыли пустыми
+    context = {'title': 'Store - Профиль', 'form': form}
     return render(request, 'users/profile.html', context)
+
+
+def logout(request):  # 4.14
+    auth.logout(request)
+    return HttpResponseRedirect(reverse('index'))
