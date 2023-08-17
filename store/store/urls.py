@@ -18,7 +18,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings  # если "from store import settings" это аналогичный способ, но не все настройки подтягиваются 
 
-from products.views import index, products
+from products.views import index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,6 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),  # урок 4.7 добавили path('users/'.....
 ]
 
-if settings.DEBUG:  # DEBUG == True:  
+if settings.DEBUG:  # DEBUG == True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     # навести на static и подсказка покажет: какие импорты добавить и что передать в ф-ию static

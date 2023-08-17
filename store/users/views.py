@@ -1,9 +1,11 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.contrib import auth, messages
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required  # 5.5 не позволяет отрабатывать контроллеру пока не произведена авторизация (неавториз user не может добавить в корзину или зайти на страницу профайла пока не авторизирован)
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 from products.models import Basket
+
 
 # 4.7 урок
 def login(request):  # при первом входе на страницу /users/login/ срабатывает GET запрос и преходит ниже на else которая return пустую форму для заполнения 'users/login.html'
@@ -36,6 +38,7 @@ def registration(request):  # 4.11
     return render(request, 'users/registration.html', context)
 
 
+@login_required  # декоратор 5.5, можно тут прописать (login_url='/users/login/')чтобы перенаправлять на регистрацию, но пропишем это все в settings внизу
 def profile(request):
     if request.method == 'POST':  # 4.12 добавялем if для варианта если user меняет first_name и last_name в профиле в лич.кабинете
         form = UserProfileForm(instance=request.user, data=request.POST, files=request.FILES)  # instance это ТЕ first_name и last_name КОТОРЫЕ мы меняем в профиле в лич.кабинете,

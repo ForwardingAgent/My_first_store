@@ -150,5 +150,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Users
-# 4.6 урок
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'  # 4.6
+LOGIN_URL = '/users/login/'  # 5.5

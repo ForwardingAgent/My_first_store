@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required  # 5.5 не позволяет отрабатывать контроллеру пока не произведена авторизация (неавториз user не может добавить в корзину или зайти на страницу профайла пока не авторизирован)
 
 from products.models import ProductCategory, Product, Basket
 from users.models import User
@@ -9,16 +10,24 @@ def index(request):  # функция = контроллер = вьюха
     return render(request, 'products/index.html', context)
 
 
-def products(request):  # приходит request это title или products или categories
+def products(request, category_id=None):  # приходит request это title или products или categories. C 6.2 добавили category_id
+    
+    if category_id:  # 6.2
+        category = ProductCategory.objects.get(id=category_id)
+        products = Product.objects.filter(category=category)
+    else:
+        products = Product.objects.all()
     context = {
         'title': 'Store - Каталог',
-        'products': Product.objects.all(),
+        # 'products': Product.objects.all(), 6.2 изменяем т.к. products будет меняться из условия выбора выше в зависимости от category_id
+        'products': products,
         'categories': ProductCategory.objects.all(),
     }
     return render(request, 'products/products.html', context)  # 
     # render - объединяем заданный шаблон html с заданным контекстным словарем и возвращаем объект HttpResponse с этим визуализированным кодом.
 
 
+@login_required  # декоратор 5.5, можно тут прописать (login_url='/users/login/')чтобы перенаправлять на регистрацию, но пропишем это все в settings внизу
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)
     basket = Basket.objects.filter(user=request.user, product=product)
@@ -33,6 +42,7 @@ def basket_add(request, product_id):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
+@login_required  # декоратор 5.5, можно тут прописать (login_url='/users/login/') чтобы перенаправлять на регистрацию, но пропишем это все в settings внизу
 def basket_remove(request, basket_id):
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
