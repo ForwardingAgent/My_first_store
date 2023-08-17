@@ -7,6 +7,10 @@ class ProductCategory(models.Model):  # 3.3 3:10 models.Model этот клас�
     name = models.CharField(max_length=128)  # 3.3 класс CharField говорит что переменная 'name' это строка с определенным набором символов
     description = models.TextField(null=True, blank=True)  # 3.3 TextField говорит что переменная 'description' строка с большим текстом, null-может быть пустым
 
+    class Meta:  # 6.4  замена англ слов в разделах на русские
+        verbose_name = 'категория'
+        verbose_name_plural = 'категория'
+
     def __str__(self):
         return self.name
 
@@ -22,6 +26,10 @@ class Product(models.Model):
     # класс CASCADE - удаление категории и всех вложеных (категорий и продуктов)
     # класс PROTECT - удаляет только категорию
     # класс SET_DEFAULT (+ значение которое впечатывается по умолчанию при удалении)
+
+    class Meta:  # 6.4  замена англ слов в разделах на русские
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
 
     def __str__(self):
         return f'Продукт: {self.name} | Категория: {self.category.name}'
@@ -39,7 +47,7 @@ class Basket(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=0)
-    created_timestap = models.DateTimeField(auto_now_add=True)
+    created_timestap = models.DateTimeField(auto_now_add=True)  # в админке зафиксировать дату добавления заказа в корзине
 
     objects = BasketQuerySet.as_manager()  # 5.4
 
