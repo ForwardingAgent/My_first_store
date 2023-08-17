@@ -11,24 +11,26 @@ def index(request):  # функция = контроллер = вьюха
     return render(request, 'products/index.html', context)
 
 
-def products(request, category_id=None, page=1):  # приходит request это title или products или categories. C 6.2 добавили category_id. С 6.3 добавили page=1
+def products(request, category_id=None, page_number=1):  # приходит request это title или products или categories. C 6.2 добавили category_id. С 6.3 добавили page=1
 
     if category_id:  # 6.2
         category = ProductCategory.objects.get(id=category_id)
         products = Product.objects.filter(category=category)
     else:
         products = Product.objects.all()
+
     per_page = 3  # сколько товаров на странице
     paginator = Paginator(products, per_page)
-    products_paginator = paginator.page(page)  # обращаемся к переменной paginator и через page передаем номер страницы товары которой надо отобразить, изначально 1 и первые 3 товара, стр.2-след. 3 товара
+    products_paginator = paginator.page(page_number)  # обращаемся к переменной paginator и через page передаем номер страницы товары которой надо отобразить, изначально 1 и первые 3 товара, стр.2-след. 3 товара
     #  products_paginator - тот же products только расширен методами для работы с Paginator()
+    
     context = {
         'title': 'Store - Каталог',
         # 'products': Product.objects.all(), 6.2 изменяем т.к. products будет меняться из условия выбора выше в зависимости от category_id
-        # 'products': products, 6.3
         'categories': ProductCategory.objects.all(),
+        'products': products_paginator,  # 6.3
     }
-    return render(request, 'products/products.html', context)  # 
+    return render(request, 'products/products.html', context)
     # render - объединяем заданный шаблон html с заданным контекстным словарем и возвращаем объект HttpResponse с этим визуализированным кодом.
 
 
