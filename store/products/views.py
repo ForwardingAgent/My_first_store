@@ -28,7 +28,7 @@ def products(request, category_id=None, page=1):  # приходит request э�
         # 'products': products, 6.3
         'categories': ProductCategory.objects.all(),
     }
-    return render(request, 'products/products.html', context)  # 
+    return render(request, 'products/products.html', context)
     # render - объединяем заданный шаблон html с заданным контекстным словарем и возвращаем объект HttpResponse с этим визуализированным кодом.
 
 
