@@ -1,12 +1,10 @@
-{% load static %}
+{% load static %}  
 <!--  {% load static %} загружает путь до папки static, путь BASE_DIR / 'static' из settings -->
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -18,7 +16,7 @@
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    {% block css %} {% endblock %}
+    {% block css %} {% endblock %}  <!--2.6 блог подставляется ИЗ index-->
 </head>
 
 <body>
@@ -75,9 +73,9 @@
 </nav>
 
 <!-- Page Content -->
-{% block content %} {% endblock %}
+{% block content %} {% endblock %}  <!--2.6 блог подставляется ИЗ products-->
 
-{% block footer %} {% endblock %}
+{% block footer %} {% endblock %}  <!--2.6 блог подставляется ИЗ products-->
 
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>

@@ -1,9 +1,9 @@
-{% extends 'products/base.html' %}
+{% extends 'products/base.html' %}  <!--2.6 расширяем base-->
 {% load static %}
 <!--  {% load static %} загружает путь до папки static, путь BASE_DIR / 'static' из settings -->
 
 {% block css %}
-<link href="{% static 'vendor/css/index.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/css/index.css' %}" rel="stylesheet">  <!--2.6 подставляется В base-->
 {% endblock %}
 
 {% block content %}
@@ -20,7 +20,8 @@
                     Бесплатная доставка по всему миру! Аутлет: до -70% Собственный бренд. -20% новым покупателям.
                 </p>
                 <button id="start-purchase-btn" type="button" class="btn btn-lg">
-                    <a id="start-purchase-link" href="{% url 'products:index' %}">     <!-- 4.2 7:40-->
+                    <a id="start-purchase-link" 
+                        href="{% url 'products:index' %}">     <!-- 2.5 products; 4.2 7:40 products:index -->
                         Начать покупки
                     </a>
                 </button>

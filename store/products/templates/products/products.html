@@ -1,4 +1,4 @@
-{% extends 'products/base.html' %}
+{% extends 'products/base.html' %}  <!--2.6 расширяем base-->
 {% load static %}
 <!--  {% load static %} загружает путь до папки static, путь BASE_DIR / 'static' из settings -->
 
@@ -6,7 +6,7 @@
     <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
+{% block content %}  <!--2.6 блог подставляется В base-->
     <div class="container">
 
         <div class="row">
@@ -114,7 +114,7 @@
     </div>
 {% endblock %}
 
-{% block footer %}
+{% block footer %}  <!--2.6 блог подставляется В base-->
     <footer class="py-5 bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
