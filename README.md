@@ -59,7 +59,7 @@
 * [![VSCode][VSCode.vsc]][VSCode-url]
 * [![Postgres][Postgres.psg]][Postgres-url]
 * [![Docker][Docker.dkr]][Docker-url]
-* [![Redis][Redis.rds]][Redis-url]
+* [![GitHub][GitHub.gth]][GitHub-url]
 * [![YouTube][YouTube.yt]][YouTube-url]
 
 
@@ -205,6 +205,10 @@ Email - npodkopaev@gmail.com
 
 [Docker.dkr]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com
+
+[GitHub.gth]: https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white
+[GitHub-url]: https://github.com
+
 
 [Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
 [Svelte-url]: https://svelte.dev/
