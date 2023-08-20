@@ -115,19 +115,22 @@ $ git clone https://github.com/ForwardingAgent/My_first_website.git
 <!-- USAGE EXAMPLES -->
 ## Описание и процесс работы
 
-В данном проекте реализована идея сайта с регистрацией:
-![First_registration](readme-assets/First_registration.png)
+## Описание и процесс работы
+Данный проект запускается парой команд docker-compose build и docker-compose up, т.к. работает контейнерах на основе платформы Docker
+Каждый элемент проекта запущен в своем контейнере (Django, PgAdmin, Postgres):
+
+![Docker](readme-assets/Docker.png)
 
 
-И авторизацией пользоваетелей:
-![Authorization](readme-assets/Authorization.png)
+Доступ и управление базой данных Postgres осуществляется через интерфейс платформы pgAdmin:
 
 
-С возможностью добавления статей и админ-панелью:
-![Django_admin](readme-assets/Django_admin.png)
+![pgAdmin](readme-assets/pgAdmin.png)
 
 
-Статьи разбиты по категориям в сайдбаре слева, а для быстрого перемещения по большому количеству статей применена постраничная пагинация.
+В личном кабинете пользователя организована Корзина товаров, так же пользователь может изменять в своем профиле, фото, имя и фамилию:
+
+![Basket](readme-assets/Basket.png)
 
 
 ![Pagination](readme-assets/Pagination.gif)
