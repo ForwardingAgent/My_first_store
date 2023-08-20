@@ -115,7 +115,6 @@ $ git clone https://github.com/ForwardingAgent/My_first_website.git
 <!-- USAGE EXAMPLES -->
 ## Описание и процесс работы
 
-## Описание и процесс работы
 Данный проект запускается парой команд docker-compose build и docker-compose up, т.к. работает контейнерах на основе платформы Docker
 Каждый элемент проекта запущен в своем контейнере (Django, PgAdmin, Postgres):
 
