@@ -8,7 +8,7 @@
                     {% if messages or form.non_field_errors %}
                         <div class="alert alert-warning alert-dismissible fade show" role="alert"
                             style="margin-top: 50px;">
-                            {% if messages %}
+                            {% if messages %}  <!--4.13 ошибки-->
                                 {% for message in messages %}
                                     {{ message }}
                                 {% endfor %}
@@ -24,13 +24,15 @@
                         <div class="card-header"><h3 class="text-center font-weight-light my-4">Авторизация</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{% url 'users:login' %}" method="post">
+                            <form action="{% url 'users:login' %}" method="post"> <!--4.9 'form action' для работы с формами, помогает понять форме куда отправлять данные, пишем users:login отправлять в контроллер def login-->
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <label class="small mb-1" for="{{ form.username.id_for_lable }}">
-                                        Имя пользователя
+                                    <label class="small mb-1" for="{{ form.username.id_for_lable }}">   <!-- 4.10 в шаблоне можно обратиться к каждому отдельному полю формы ч/з название формы form.название_поля-->
+                                        <!-- Возвращает HTML ID атрибут этого виджета для использования <label>, учитывая ID поля. Возвращает пустую строку, если ID недоступен.
+                                        Этот необходимо, т.к. некоторые виджеты имеют несколько элементов HTML и, следовательно, несколько ID. В этом случае данный метод должен возвращать значение ID, соответствующее первому ID в тегах виджета. -->
+                                        Имя пользователя  <!--form.название_поля.name form.название_поля.value form.название_поля.id_for_lable возвращает id поля которое по умолчанию создается по схеме id_имя_поля -->
                                     </label>
-                                    {{ form.username }}
+                                    {{ form.username }}  <!-- 4.10 -->
                                 </div>
                                 <div class="form-group">
                                     <label class="small mb-1" for="{ form.password.id_for_lable }">

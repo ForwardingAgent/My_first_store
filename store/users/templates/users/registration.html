@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    {% if form.non_field_errors %}
+                    {% if form.non_field_errors %}  <!--4.13 обработка ошибок -->
                         <div class="alert alert-warning alert-dismissible fade show" role="alert"
                             style="margin-top: 50px;">
                             {{ form.errors }}
@@ -18,12 +18,12 @@
                         <div class="card-header"><h3 class="text-center font-weight-light my-4">Создать аккаунт</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{% url 'users:registration' %}" method="post">
+                            <form action="{% url 'users:registration' %}" method="post"> <!-- 4.11 -->
                                 {% csrf_token %}
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="small mb-1" for="{{ form.first_name.id_for_lable }}">
+                                            <label class="small mb-1" for="{{ form.first_name.id_for_lable }}">  <!-- 4.11 -->
                                                 Имя
                                             </label>
                                             {{ form.first_name }}
@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="small mb-1" for="{{ form.last_name.id_for_lable }}">
+                                            <label class="small mb-1" for="{{ form.last_name.id_for_lable }}">  <!-- 4.11 -->
                                                 Фамилия
                                             </label>
                                             {{ form.last_name }}
@@ -40,13 +40,13 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="{{ form.username.id_for_lable }}">
+                                        <label class="small mb-1" for="{{ form.username.id_for_lable }}">   <!-- 4.11 -->
                                             Имя пользователя
                                         </label>
                                         {{ form.username }}
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="{{ form.email.id_for_lable }}">
+                                        <label class="small mb-1" for="{{ form.email.id_for_lable }}">  <!-- 4.11 -->
                                             Адрес электронной почты
                                         </label>
                                         {{ form.email }}

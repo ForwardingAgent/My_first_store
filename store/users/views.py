@@ -18,7 +18,7 @@ def login(request):  # при первом входе на страницу /use
             user = auth.authenticate(username=username, password=password)  # после проверки,  тут происходит AUTHENTICATION (подтверждение личности) надо достать пользователя из БД и понять существует ли он
             if user:  # == True
                 auth.login(request, user)  # если нашли в БД тут происходит AUTHORISATION (Разрешение)
-                return HttpResponseRedirect(reverse('index'))  # перенаправление посе регистрации на  главную страниц
+                return HttpResponseRedirect(reverse('index'))  # перенаправление после регистрации на главную страниц
     else:
         form = UserLoginForm()
     context = {'form': form}
@@ -30,7 +30,7 @@ def registration(request):  # 4.11
         form = UserRegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()  # пишем save для формы а он уже вызовет save для объектов и сохранит все в БД (first_name.save(), last_name.save() и тд)
-            messages.success(request, 'Поздравляем, вы успешно зарегистрировались!')  # 4.13 
+            messages.success(request, 'Поздравляем, вы успешно зарегистрировались!')  # 4.13 import пакет messages
             return HttpResponseRedirect(reverse('users:login'))  # перенаправляем на старницу авторизации
     else:
         form = UserRegistrationForm()

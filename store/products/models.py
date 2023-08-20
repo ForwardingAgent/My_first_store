@@ -32,7 +32,7 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
 
     def __str__(self):
-        return f'Продукт: {self.name} | Категория: {self.category.name}'
+        return f'Продукт: {self.name} | Категория: {self.category.name}'  # category объект класса ProductCategory и можно обратиться к ее name
 
 
 class BasketQuerySet(models.QuerySet):  # 5.4 переопределяем QuerySet, добавляем два своих метода в QuerySet. Считает общее кол-во товаров и сумму каждого в корзине
